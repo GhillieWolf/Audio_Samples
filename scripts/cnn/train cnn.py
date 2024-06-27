@@ -14,7 +14,6 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from tensorflow.keras.utils import to_categorical
 from scipy.io.wavfile import read
 from scipy.signal import spectrogram
-from scipy.signal.windows import gaussian
 import cv2
 
 # Ustawienia
@@ -133,23 +132,31 @@ for idx in random_indices:
     plt.title(f'idx: {idx} True Label: {piano_keys[true_label]}, Predicted: {piano_keys[predicted_label]}')
     plt.axis('off')
     plt.show()
-    #print(x_test[idx].reshape(1, x_train.shape[1], x_train.shape[2], 1).shape)
-    #print(x_test[idx].reshape(1, x_train.shape[1], x_train.shape[2], 1))
-    
-    
 
 # Wizualizacja wyników
 fig = plt.figure()
-plt.plot(hist.history['loss'], color='teal', label='loss')
-plt.plot(hist.history['val_loss'], color='orange', label='val_loss')
-fig.suptitle('Loss', fontsize=20)
+plt.plot(hist.history['loss'], color='teal', label='koszt na etapie treningu')
+plt.plot(hist.history['val_loss'], color='orange', label='koszt na etapie walidacji')
+for i, v in enumerate(hist.history['loss']):
+    plt.text(i, v, f"{v:.2f}", ha='center', va='bottom', color='teal')
+for i, v in enumerate(hist.history['val_loss']):
+    plt.text(i, v, f"{v:.2f}", ha='center', va='bottom', color='orange')
+fig.suptitle('', fontsize=20)
+plt.xlabel('Epoki')
+plt.ylabel('Strata')
 plt.legend(loc="upper left")
 plt.show()
 
 fig = plt.figure()
-plt.plot(hist.history['accuracy'], color='teal', label='accuracy')
-plt.plot(hist.history['val_accuracy'], color='orange', label='val_accuracy')
-fig.suptitle('Accuracy', fontsize=20)
+plt.plot(hist.history['accuracy'], color='teal', label='dokładność na etapie treningu')
+plt.plot(hist.history['val_accuracy'], color='orange', label='dokładność na etapie walidacji')
+for i, v in enumerate(hist.history['accuracy']):
+    plt.text(i, v, f"{v:.2%}", ha='center', va='bottom', color='teal')
+for i, v in enumerate(hist.history['val_accuracy']):
+    plt.text(i, v, f"{v:.2%}", ha='center', va='bottom', color='orange')
+fig.suptitle('', fontsize=20)
+plt.xlabel('Epoki')
+plt.ylabel('Dokładność')
 plt.legend(loc="upper left")
 plt.show()
 
