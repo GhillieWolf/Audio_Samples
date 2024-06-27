@@ -1,4 +1,4 @@
-# Repozytorium Badań nad Transkrypcją Audio
+# Repozytorium badań nad transkrypcją audio
 
 To repozytorium zawiera dane i skrypty używane do badań nad różnymi metodami wykrywania częstotliwości. Badane metody obejmują:
 
